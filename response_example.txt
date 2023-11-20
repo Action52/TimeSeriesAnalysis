@@ -1,0 +1,322 @@
+{
+    "warnings": [],
+    "data": [
+        {
+            "type": "itinerary-price-metric",
+            "origin": {
+                "iataCode": "MEX"
+            },
+            "destination": {
+                "iataCode": "MAD"
+            },
+            "departureDate": "2023-12-01",
+            "transportType": "FLIGHT",
+            "currencyCode": "USD",
+            "oneWay": false,
+            "priceMetrics": [
+                {
+                    "amount": "107.26",
+                    "quartileRanking": "MINIMUM"
+                },
+                {
+                    "amount": "1013.64",
+                    "quartileRanking": "FIRST"
+                },
+                {
+                    "amount": "1117.97",
+                    "quartileRanking": "MEDIUM"
+                },
+                {
+                    "amount": "1382.74",
+                    "quartileRanking": "THIRD"
+                },
+                {
+                    "amount": "1558.65",
+                    "quartileRanking": "MAXIMUM"
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "count": 1,
+        "links": {
+            "self": "https://test.api.amadeus.com/v1/analytics/flight-price-metrics?originIataCode=MEX&destinationIataCode=MAD&departureDate=2023-12-01&currencyCode=USD&oneWay=False"
+        }
+    }
+}
+{
+    "warnings": [],
+    "data": [
+        {
+            "type": "itinerary-price-metric",
+            "origin": {
+                "iataCode": "MEX"
+            },
+            "destination": {
+                "iataCode": "MAD"
+            },
+            "departureDate": "2023-12-02",
+            "transportType": "FLIGHT",
+            "currencyCode": "USD",
+            "oneWay": false,
+            "priceMetrics": [
+                {
+                    "amount": "107.51",
+                    "quartileRanking": "MINIMUM"
+                },
+                {
+                    "amount": "1015.03",
+                    "quartileRanking": "FIRST"
+                },
+                {
+                    "amount": "1124.53",
+                    "quartileRanking": "MEDIUM"
+                },
+                {
+                    "amount": "1386.98",
+                    "quartileRanking": "THIRD"
+                },
+                {
+                    "amount": "1539.37",
+                    "quartileRanking": "MAXIMUM"
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "count": 1,
+        "links": {
+            "self": "https://test.api.amadeus.com/v1/analytics/flight-price-metrics?originIataCode=MEX&destinationIataCode=MAD&departureDate=2023-12-02&currencyCode=USD&oneWay=False"
+        }
+    }
+}
+{
+    "warnings": [],
+    "data": [
+        {
+            "type": "itinerary-price-metric",
+            "origin": {
+                "iataCode": "MEX"
+            },
+            "destination": {
+                "iataCode": "MAD"
+            },
+            "departureDate": "2023-12-03",
+            "transportType": "FLIGHT",
+            "currencyCode": "USD",
+            "oneWay": false,
+            "priceMetrics": [
+                {
+                    "amount": "107.76",
+                    "quartileRanking": "MINIMUM"
+                },
+                {
+                    "amount": "1015.03",
+                    "quartileRanking": "FIRST"
+                },
+                {
+                    "amount": "1144.94",
+                    "quartileRanking": "MEDIUM"
+                },
+                {
+                    "amount": "1385.87",
+                    "quartileRanking": "THIRD"
+                },
+                {
+                    "amount": "1539.37",
+                    "quartileRanking": "MAXIMUM"
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "count": 1,
+        "links": {
+            "self": "https://test.api.amadeus.com/v1/analytics/flight-price-metrics?originIataCode=MEX&destinationIataCode=MAD&departureDate=2023-12-03&currencyCode=USD&oneWay=False"
+        }
+    }
+}
+{
+    "warnings": [],
+    "data": [
+        {
+            "type": "itinerary-price-metric",
+            "origin": {
+                "iataCode": "MEX"
+            },
+            "destination": {
+                "iataCode": "MAD"
+            },
+            "departureDate": "2023-12-04",
+            "transportType": "FLIGHT",
+            "currencyCode": "USD",
+            "oneWay": false,
+            "priceMetrics": [
+                {
+                    "amount": "107.55",
+                    "quartileRanking": "MINIMUM"
+                },
+                {
+                    "amount": "1005.39",
+                    "quartileRanking": "FIRST"
+                },
+                {
+                    "amount": "1153.03",
+                    "quartileRanking": "MEDIUM"
+                },
+                {
+                    "amount": "1354.95",
+                    "quartileRanking": "THIRD"
+                },
+                {
+                    "amount": "1492.24",
+                    "quartileRanking": "MAXIMUM"
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "count": 1,
+        "links": {
+            "self": "https://test.api.amadeus.com/v1/analytics/flight-price-metrics?originIataCode=MEX&destinationIataCode=MAD&departureDate=2023-12-04&currencyCode=USD&oneWay=False"
+        }
+    }
+}
+{
+    "warnings": [],
+    "data": [
+        {
+            "type": "itinerary-price-metric",
+            "origin": {
+                "iataCode": "MEX"
+            },
+            "destination": {
+                "iataCode": "MAD"
+            },
+            "departureDate": "2023-12-05",
+            "transportType": "FLIGHT",
+            "currencyCode": "USD",
+            "oneWay": false,
+            "priceMetrics": [
+                {
+                    "amount": "108.03",
+                    "quartileRanking": "MINIMUM"
+                },
+                {
+                    "amount": "999.34",
+                    "quartileRanking": "FIRST"
+                },
+                {
+                    "amount": "1126.23",
+                    "quartileRanking": "MEDIUM"
+                },
+                {
+                    "amount": "1345.68",
+                    "quartileRanking": "THIRD"
+                },
+                {
+                    "amount": "1493.68",
+                    "quartileRanking": "MAXIMUM"
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "count": 1,
+        "links": {
+            "self": "https://test.api.amadeus.com/v1/analytics/flight-price-metrics?originIataCode=MEX&destinationIataCode=MAD&departureDate=2023-12-05&currencyCode=USD&oneWay=False"
+        }
+    }
+}
+{
+    "warnings": [],
+    "data": [
+        {
+            "type": "itinerary-price-metric",
+            "origin": {
+                "iataCode": "MEX"
+            },
+            "destination": {
+                "iataCode": "MAD"
+            },
+            "departureDate": "2023-12-06",
+            "transportType": "FLIGHT",
+            "currencyCode": "USD",
+            "oneWay": false,
+            "priceMetrics": [
+                {
+                    "amount": "102.52",
+                    "quartileRanking": "MINIMUM"
+                },
+                {
+                    "amount": "987.27",
+                    "quartileRanking": "FIRST"
+                },
+                {
+                    "amount": "1096.03",
+                    "quartileRanking": "MEDIUM"
+                },
+                {
+                    "amount": "1345.85",
+                    "quartileRanking": "THIRD"
+                },
+                {
+                    "amount": "1563.00",
+                    "quartileRanking": "MAXIMUM"
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "count": 1,
+        "links": {
+            "self": "https://test.api.amadeus.com/v1/analytics/flight-price-metrics?originIataCode=MEX&destinationIataCode=MAD&departureDate=2023-12-06&currencyCode=USD&oneWay=False"
+        }
+    }
+}
+{
+    "warnings": [],
+    "data": [
+        {
+            "type": "itinerary-price-metric",
+            "origin": {
+                "iataCode": "MEX"
+            },
+            "destination": {
+                "iataCode": "MAD"
+            },
+            "departureDate": "2023-12-07",
+            "transportType": "FLIGHT",
+            "currencyCode": "USD",
+            "oneWay": false,
+            "priceMetrics": [
+                {
+                    "amount": "102.85",
+                    "quartileRanking": "MINIMUM"
+                },
+                {
+                    "amount": "992.94",
+                    "quartileRanking": "FIRST"
+                },
+                {
+                    "amount": "1097.08",
+                    "quartileRanking": "MEDIUM"
+                },
+                {
+                    "amount": "1346.33",
+                    "quartileRanking": "THIRD"
+                },
+                {
+                    "amount": "1528.67",
+                    "quartileRanking": "MAXIMUM"
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "count": 1,
+        "links": {
+            "self": "https://test.api.amadeus.com/v1/analytics/flight-price-metrics?originIataCode=MEX&destinationIataCode=MAD&departureDate=2023-12-07&currencyCode=USD&oneWay=False"
+        }
+    }
+}

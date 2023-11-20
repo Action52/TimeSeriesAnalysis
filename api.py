@@ -1,6 +1,8 @@
 import requests
 import json
 import os
+from datetime import datetime, timedelta
+
 
 class AmadeusAPI:
     """
@@ -65,6 +67,46 @@ class AmadeusAPI:
         else:
             raise Exception("Failed to retrieve flight price analysis")
 
+    def get_flight_price_analysis_bulk(self, origin, destination, start_date,
+                                       end_date, currency):
+        """
+        Get flight price analysis for a range of dates.
+
+        :param origin: IATA code for the origin airport.
+        :param destination: IATA code for the destination airport.
+        :param start_date: Start date in 'YYYY-MM-DD' format.
+        :param end_date: End date in 'YYYY-MM-DD' format.
+        :param currency: Currency code (e.g., 'USD', 'EUR').
+        :return: List of flight price analysis data for each date.
+        """
+        date_list = self.create_date_range(start_date, end_date)
+        results = []
+
+        for date in date_list:
+            try:
+                result = self.get_flight_price_analysis(origin, destination,
+                                                        date, currency)
+                results.append(result)
+            except Exception as e:
+                print(f"Error on {date}: {e}")
+
+        return results
+
+    @staticmethod
+    def create_date_range(start_date, end_date):
+        """
+        Create a list of dates between start_date and end_date.
+
+        :param start_date: Start date in 'YYYY-MM-DD' format.
+        :param end_date: End date in 'YYYY-MM-DD' format.
+        :return: List of dates in 'YYYY-MM-DD' format.
+        """
+        start = datetime.strptime(start_date, "%Y-%m-%d")
+        end = datetime.strptime(end_date, "%Y-%m-%d")
+        date_list = [(start + timedelta(days=x)).strftime("%Y-%m-%d") for x in
+                     range((end - start).days + 1)]
+        return date_list
+
 
 # Example Usage
 if __name__ == "__main__":
@@ -73,8 +115,10 @@ if __name__ == "__main__":
 
     amadeus = AmadeusAPI(client_id, client_secret)
     try:
-        data = amadeus.get_flight_price_analysis("MEX", "MAD", "2023-12-01",
-                                                 "EUR")
-        print(json.dumps(data, indent=4))
+        bulk_data = amadeus.get_flight_price_analysis_bulk("MEX", "MAD",
+                                                           "2022-12-01",
+                                                           "2022-12-03", "USD")
+        for data in bulk_data:
+            print(json.dumps(data, indent=4))
     except Exception as e:
         print(f"Error: {e}")
