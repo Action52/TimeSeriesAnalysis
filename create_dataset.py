@@ -3,6 +3,7 @@ import pandas as pd
 import yfinance as yf
 from datetime import datetime, timedelta
 from api import *
+from tqdm import tqdm_notebook
 
 
 def fetch_currency_data(pairs, start_date, end_date):
@@ -24,14 +25,17 @@ def create_combined_dataset(start_date, end_date, currency_pairs, origin,
     flight_data = amadeus.get_flight_price_analysis_bulk(origin, destination,
                                                          start_date, end_date,
                                                          currency)
+
     currency_data = fetch_currency_data(currency_pairs, start_date, end_date)
 
     combined_data = []
 
-    print(flight_data)
+    # print(flight_data)
 
     for date in AmadeusAPI.create_date_range(start_date, end_date):
         flight_info = next((item for item in flight_data if
+                            item is not None and
+                            len(item['data']) > 0 and
                             item['data'][0]['departureDate'] == date), None)
 
         combined_row = {'date': date}

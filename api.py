@@ -2,6 +2,8 @@ import requests
 import json
 import os
 from datetime import datetime, timedelta
+from tqdm import tqdm_notebook
+import logging
 
 
 class AmadeusAPI:
@@ -82,14 +84,14 @@ class AmadeusAPI:
         date_list = self.create_date_range(start_date, end_date)
         results = []
 
-        for date in date_list:
+        for date in tqdm_notebook(date_list):
             try:
                 result = self.get_flight_price_analysis(origin, destination,
                                                         date, currency)
                 results.append(result)
             except Exception as e:
-                print(f"Error on {date}: {e}")
-
+                logging.info(f"Error on {date}: {e}")
+                continue
         return results
 
     @staticmethod
