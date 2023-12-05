@@ -27,7 +27,9 @@ def create_combined_dataset(start_date, end_date, currency_pairs):
     for pair in currency_pairs:
         pair_data = {}
         pair_data["date"] = currency_data[pair]["Close"].index
-        pair_data["data"] = currency_data[pair]["Close"].values
+
+        for col in currency_data[pair].columns:
+            pair_data[col] = currency_data[pair][col].values
         pair_data["currency"] = pair
         df = pd.DataFrame(pair_data)
         combined_data.append(df)
@@ -49,6 +51,7 @@ def transform_all_columns_to_rows(df):
     
     return df_combined
 
+
 # Example Usage
 if __name__ == "__main__":
     start_date = '2014-09-17'
@@ -56,4 +59,4 @@ if __name__ == "__main__":
     currency_pairs = ['EURUSD=X', 'BTC-EUR', 'BTC-USD']  # Adjust as needed
 
     combined_df = create_combined_dataset(start_date, end_date, currency_pairs)
-    combined_df.to_csv('exchange.csv', index=False)
+    combined_df.to_csv('exchange_v2.csv', index=False)

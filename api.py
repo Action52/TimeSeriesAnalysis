@@ -18,7 +18,7 @@ class AmadeusAPI:
         :param client_id: Your Amadeus client ID.
         :param client_secret: Your Amadeus client secret.
         """
-        self.base_url = "https://test.api.amadeus.com"
+        self.base_url = "https://api.amadeus.com"
         self.token = None
         self.client_id = client_id
         self.client_secret = client_secret
@@ -117,9 +117,9 @@ if __name__ == "__main__":
 
     amadeus = AmadeusAPI(client_id, client_secret)
     try:
-        bulk_data = amadeus.get_flight_price_analysis_bulk("MEX", "MAD",
-                                                           "2022-12-01",
-                                                           "2022-12-03", "USD")
+        bulk_data = amadeus.get_flight_price_analysis_bulk("MAD", "IST",
+                                                           "2019-03-01",
+                                                           "2019-03-01", "USD")
         for data in bulk_data:
             print(json.dumps(data, indent=4))
     except Exception as e:
