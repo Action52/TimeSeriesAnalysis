@@ -19,6 +19,32 @@ plt.style.use('ggplot')
 plt.rcParams['figure.figsize'] = 20, 8
 
 
+def load_train_val_test_data(
+        file_name: str,
+        currency: str,
+        sizes=(0.76,0.12,0.12)) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """
+    Loads the original dataset, resamples the dates, and imputes the data to
+    achieve a consistent time series before splitting in train and test.
+    :param file_name:
+    :param currency:
+    :param train_size:
+    :return: A tuple with the train dataframe and test dataframe.
+    """
+
+    df = load_data(file_name, currency, plot_result=False)
+    df = resample_dates(df)
+    df = impute_missing(df)
+
+    # First split into train/test
+    train_df, test_df = split_data(df, sizes[0] + sizes[1], plot_result=False)
+
+    # Now split again to get validation set
+    train_df, valid_df = split_data(train_df, sizes[0], plot_result=False)
+
+    return train_df, valid_df, test_df
+
+
 def load_train_test_data(
         file_name: str,
         currency: str,
@@ -117,32 +143,36 @@ def resample_dates(df: pd.DataFrame, plot_result: bool=False) -> pd.DataFrame:
     return df_res
 
 
-def impute_missing(df: pd.DataFrame, method='bfill',
-                   plot_result: bool=False) -> pd.DataFrame:
+def impute_missing(df: pd.DataFrame, method='bfill', plot_result: bool=False) -> pd.DataFrame:
     """
-    Imputes the missing data rows with the immediate previous value (acceptable
-    for forex data).
+    Imputes the missing data rows with the specified method (default is backward fill).
     :param df: DataFrame to use.
-    :param method: Default 'bfill'.
+    :param method: Method for filling missing values, default 'bfill'.
     :param plot_result: Plot result after imputation.
-    :return:
+    :return: DataFrame with imputed values.
     """
     currency = df.iloc[0]['currency']
+
+    # Check for duplicate indexes
+    if df.index.duplicated().any():
+        print("Warning: DataFrame contains duplicate indexes. Handling duplicates.")
+        df = df[~df.index.duplicated(keep='first')]  # Keep first occurrence
+
+    # Impute missing values
     df.fillna(method=method, inplace=True)
 
-    check_nulls(df)
-
+    # Plotting the result
     if plot_result:
-        alt.Chart(df).mark_line().encode(
+        chart = alt.Chart(df.reset_index()).mark_line().encode(
             x=alt.X('date:T', axis=alt.Axis(format='%Y-%m')),
             y=alt.Y('Close:Q', scale=alt.Scale(
-                domain=[df['Close'].min() - 0.05,
-                        df['Close'].max() + 0.05]))
+                domain=[df['Close'].min() - 0.05, df['Close'].max() + 0.05]))
         ).properties(
             width=1000,
             height=300,
             title=f"{currency} Exchange Rate (Imputed)"
         )
+        chart.display()
 
     return df
 
@@ -274,6 +304,8 @@ def split_data(df: pd.DataFrame, train_size: float = 0.85,
     df_train = df.iloc[0:int(df.shape[0] * train_size)]
     df_test = df.iloc[int(df.shape[0] * train_size):]
 
+
+
     if plot_result:
         df_train['Close'].plot(legend="Train Data")
         df_test['Close'].plot(legend="Test Data")
@@ -281,3 +313,60 @@ def split_data(df: pd.DataFrame, train_size: float = 0.85,
     return df_train, df_test
 
 
+def calc_benchmarks(df_train, df_test, seasonality=90, plot_result=True):
+    """
+    Calculates the benchmark models for the time series.
+    :param df_train:
+    :param df_test:
+    :param seasonality:
+    :param plot_result:
+    :return:
+    """
+
+    # Mean
+    df_test['bench_mean_Close'] = df_train['Close'].mean()
+
+    # Naive
+    df_test['bench_naive_Close'] = df_train['Close'].iloc[-1]
+
+    # Drift method forecast
+    h = len(df_test)  # Forecast horizon
+    first_value = df_train['Close'].iloc[0]
+    last_value = df_train['Close'].iloc[-1]
+    n = len(df_train)  # Number of observations in the training set
+    drift = (last_value - first_value) / (n - 1)
+    df_test['bench_drift_Close'] = (df_test['bench_naive_Close'] + drift *
+                                    range(1, h + 1))
+
+    # Seasonal Naive Forecast
+    # Get the last season's values from the training set
+    last_season_values = df_train['Close'].iloc[-seasonality:]
+
+    # Repeat these values for the length of the test set
+    df_test[
+        'bench_seasonal_naive_Close'] = last_season_values.values.repeat(
+        len(df_test) // seasonality + 1)[:len(df_test)]
+
+    if plot_result:
+        currency = df_train.iloc[0]['currency']
+
+        # Plotting
+        df_train['Close'].plot(label='Train Close (Real)')
+        df_test['bench_mean_Close'].plot(label='Benchmark Mean (Predicted)',
+                                             linestyle='--')
+        df_test['bench_naive_Close'].plot(label='Benchmark Naive (Predicted)',
+                                              linestyle='--')
+        df_test['bench_seasonal_naive_Close'].plot(
+            label=f'Benchmark Seasonal Naive (Predicted, {seasonality} days)', linestyle='--')
+        df_test['bench_drift_Close'].plot(label='Benchmark Drift (Predicted)',
+                                              linestyle='--')
+        df_test['Close'].plot(label='Test Close (Real)', color='green')
+        # Add a legend
+        plt.legend()
+        plt.title(f'{currency} Train Close (Real) vs Benchmark Forecasts (Predicted)')
+        plt.xlabel('Date')
+        plt.ylabel('Close Price')
+
+        plt.show()
+
+    return df_train, df_test
