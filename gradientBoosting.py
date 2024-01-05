@@ -108,7 +108,6 @@ def create_model(Xtrain,ytrain):
 
     # len(Xtrain)/n_splits - gaps * n_splits - 1  
     testSize = math.floor(len(Xtrain) / 4) - 4 - 1
-    print(testSize)
 
     #time series split for cross validation
     tss = TimeSeriesSplit(n_splits=4, test_size=testSize, gap=1)
