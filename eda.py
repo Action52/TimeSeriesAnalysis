@@ -9,8 +9,6 @@ import numpy as np
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 from statsmodels.tsa.seasonal import seasonal_decompose
 
-from ydata_profiling import ProfileReport
-
 from sklearn.model_selection import train_test_split
 
 from typing import Tuple, Any
