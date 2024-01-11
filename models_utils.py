@@ -14,9 +14,13 @@ def calculate_forecast_metrics(df, actual_col, benchmark_cols):
     """
     metrics = pd.DataFrame(index=['MAE', 'MSE', 'RMSE', 'MAPE', 'R2'])
 
+    df = df.dropna(subset=[actual_col])
+
     for col in benchmark_cols:
-        actual = df[actual_col]
-        predicted = df[col]
+        df_copy = df.copy()
+        df_copy = df_copy.dropna(subset=[col])
+        actual = df_copy[actual_col]
+        predicted = df_copy[col]
 
         mae = mean_absolute_error(actual, predicted)
         mse = mean_squared_error(actual, predicted)
