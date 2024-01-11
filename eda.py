@@ -248,8 +248,8 @@ def calculate_bollinger_bands(df: pd.DataFrame, window: int = 30, stds: int = 3,
     if plot_result:
         currency = df.iloc[0]['currency']
         # Create the area chart for the Bollinger Bands
-        band_area = alt.Chart(df).mark_area(opacity=0.3,
-                                            color='lightblue').encode(
+        band_area = alt.Chart(df).mark_area(opacity=0.5,
+                                            color='#F6E8D6').encode(
             x=alt.X('date:T', axis=alt.Axis(format='%Y-%m')),
             y=alt.Y(f'lowerBand:Q', scale=alt.Scale(
                 domain=[min_value - 0.03, max_value + 0.03])),
@@ -257,14 +257,14 @@ def calculate_bollinger_bands(df: pd.DataFrame, window: int = 30, stds: int = 3,
         )
 
         # Create the line chart for the moving average
-        mov_line = alt.Chart(df).mark_line(color='orange').encode(
+        mov_line = alt.Chart(df).mark_line(color='#417156', opacity=0.7).encode(
             x=alt.X('date:T', axis=alt.Axis(format='%Y-%m')),
             y=alt.Y('Close:Q', scale=alt.Scale(
                 domain=[min_value - 0.03, max_value + 0.03])),
         )
 
         # Create the points chart for threshold surpassing
-        threshold_points = alt.Chart(df).mark_point(color='red').encode(
+        threshold_points = alt.Chart(df).mark_point(color='#875C62').encode(
             x=alt.X('date:T', axis=alt.Axis(format='%Y-%m')),
             y=alt.Y('Close:Q'),
             opacity=alt.condition(
